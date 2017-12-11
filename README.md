@@ -31,22 +31,104 @@ Normalmente em nossos sistemas precisaremos representar elementos do mundo real 
 Neste microexemplo criaremos uma classe chamada Cliente a partir da qual vamos persistir dados em uma tabela chamada Clientes no banco de dados. O código dessa classe pode ser visto abaixo:
 
 ```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+class Cliente
+{
+public int Id { get; set; }
+public string Nome { get; set; }
+public int Idade { get; set; }
+public decimal Credito { get; set; }
+}
 ```
+A propriedade Id será usada como chave primária da tabela que será gerada no banco. Essa nomenclatura é >reconhecida por padrão pelo Entity Framework e em seu lugar poderia ser usado ClienteId;
+
+Note que toda propriedade possui os métodos get e set, definidos de forma padrão/vazia. Isso é necessário para que o Entity Framework possa preencher essa propriedade dinamicamente com os dados vindos do banco.
+
+#### Passo 2: Instalar o Entity Framework
+
+O segundo passo para utilizar o Entity Framework é instalá-lo em nossa aplicação através do NuGet, que é o gerenciador de pacotes do ambiente .NET. Para fazer isso, clique com a direita sobre o projeto no Visual Studio e em seguida acesse o menu Manage NuGet Packages, como vemos na Figura 1.
+
+####IMAGEM AQUI!
+
+Em seguida busque por EntityFramework e instale o pacote de mesmo nome, como ilustra a Figura 2.
+
+####IMAGEM AQUI
+
+A partir de agora poderemos usar as classes do framework para acessar o banco de dados.
+
+#### Passo 3: Criar o DbContext
+
+DbContext é uma classe central do Entity Framework. Ela representa uma abstração do banco de dados dentro da aplicação e é por meio dela que acessamos as tabelas (na forma de listas) e os registros (na forma de objetos).
+
+Precisamos então criar uma nova classe que herdará de DbContext e aqui se chamará ClientesContext, como podemos ver a seguir:
+
+```markdown
+class ClientesContext:DbContext
+{
+public ClientesContext():base("BancoClientes")
+{
+} 
+public DbSet<Cliente> Clientes { get; set; }
+}
+```
+Linha 1: A classe deve herdar de DbContext, que pertence ao namespace System.Data.Entity e deve ser importado por meio da diretiva using;
+
+Linha 3: Aqui invocamos o construtor da classe pai, passando como parâmetro o nome da string de conexão na qual essa classe encontrará as informações necessárias para se conectar ao banco de dados;
+
+Linha 7: Aqui temos a definição da propriedade Clientes, que representará a tabela de mesmo nome no banco de dados. A classe DbSetrepresenta uma coleção de objetos que será mapeada como registros do banco de dados.
+
+#### Passo 4: Criar a string de conexão
+
+Como vimos anteriormente a classe ClientesContext faz referência à string de conexão chamada “BancoClientes”. A string de conexão, ou connection string, define as informações necessárias para conectar com o banco de dados. Por padrão ela é definida no arquivo App.config ou Web.config, da seguinte forma:
+
+```markdown
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+<!-- demais elementos do XML -->
+<connectionStrings>
+<add name="BancoClientes"
+connectionString="Data Source=.\SQLExpress;
+Initial Catalog=DbClientes;
+Integrated Security=True;"
+providerName="System.Data.SqlClient" />
+</connectionStrings>
+</configuration>
+```
+
+Linha 4: As connection strings de uma aplicação devem estar dentro da seção connectionStrings no XML;
+
+Linha 5: Cada string de conexão é criada com o elemento add, que possui vários atributos: name (o nome dessa string, que é o mesmo referenciado na classe DbContext), connectionString (a sequência de informações para acessar o banco - servidor, nome do banco e modo de autenticação) e providerName (a biblioteca de classes responsável por prover ao Entity Framework o acesso ao banco - nesse caso usamos a biblioteca do ADO.NET para SQL Server).
+
+A partir de agora a classe ClientesContext já tem as informações necessárias para acessar o servidor do SQL Server, criar o banco e criar a tabela Clientes. Então podemos usá-la para gravar nosso primeiro registro, como veremos a seguir.
+
+#### Passo 5: Gravar dados no banco
+
+Agora que nossa aplicação já está configurada para efetuar o Mapeamento Objeto-Relacional, podemos criar um novo cliente e gravá-lo no banco de dados. Para isso utilizaremos o método Main da classe Program, da seguinte forma:
+
+```markdown
+static void Main(string[] args)
+{
+Cliente cli = new Cliente
+{
+Nome = "Joel",
+Credito = 900,
+Idade = 24
+};
+
+ClientesContext db = new ClientesContext();
+db.Clientes.Add(cli);
+db.SaveChanges();
+
+Console.WriteLine("Cliente salvo com sucesso.");
+Console.ReadKey();
+}
+```
+Linhas 3 a 8: Criamos um objeto do tipo Cliente e preenchemos seus dados. Note que não preenchemos o Id, pois ele será gerado pelo banco de dados automaticamente;
+
+Linhas 10 a 12: Instanciamos a classe ClientesContext e a partir dela adicionamos o novo cliente à lista e salvamos a operação com o método SaveChanges;
+
+Linhas 14 e 15: Imprimimos uma mensagem no console e aguardamos o pressionamento de uma nova tecla para finalizar a aplicação.
+
+Se executarmos a aplicação agora veremos que o banco de dados será criado no SQL Server, bem como a tabela de Clientes e o registro será inserido. Isso tudo foi feito utilizando poucas linhas de código e sem escrever instruções SQL, graças ao Mapeamento Objeto-Relacional feito pelo Entity Framework.
 
 For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
 
