@@ -16,9 +16,19 @@ Um dos grandes slogan do SQL Server 2008 é ir além do relacional. De fato ele 
 
 
 
-### Inserindo em um BDOR com SQL SERVER
+### Mapeamento Objeto-Relacional
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+ORM (Object-Relational Mapping) é uma técnica que consiste da conversão das classes da aplicação para tabelas do banco de dados e vice-versa. Da mesma forma, também faz parte desse processo a conversão entre os objetos da aplicação e as linhas da tabela. Ou seja, enquanto no código trabalhamos com classes e objetos, esses são gravados e recuperados do banco de dados na forma de registros/linhas.
+
+Quando efetuamos esse processo manualmente, cabe a nós ler as linhas e colunas da tabela e preencher objetos e suas propriedades. No entanto, no .NET framework (assim como em outras linguagens) temos à disposição frameworks que se encarregam desse processo. Dessa forma, podemos trabalhar apenas com classes e objetos, sem escrever instruções SQL, e o framework faz todas as conversões necessárias para nós.
+
+Neste microexemplo utilizaremos o Entity Framework, que é o principal framework ORM do ecossistema .NET. Confira abaixo o passo a passo de como proceder para efetuar seu primeiro Mapeamento Objeto-Relacional em C#. Para demonstrar esse processo partiremos de um projeto do tipo Console Application criado no Visual Studio.
+
+#### Passo 1: Criar a classe de domínio
+
+Normalmente em nossos sistemas precisaremos representar elementos do mundo real envolvidos no problema que queremos resolver com esse software. Por exemplo, em um sistema de automação comercial precisaremos representar entidades como Cliente, Produto, Fornecedor, etc. Essas são nossas classes de domínio.
+
+Neste microexemplo criaremos uma classe chamada Cliente a partir da qual vamos persistir dados em uma tabela chamada Clientes no banco de dados. O código dessa classe pode ser visto abaixo:
 
 ```markdown
 Syntax highlighted code block
