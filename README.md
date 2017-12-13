@@ -130,12 +130,31 @@ Linhas 14 e 15: Imprimimos uma mensagem no console e aguardamos o pressionamento
 
 Se executarmos a aplicação agora veremos que o banco de dados será criado no SQL Server, bem como a tabela de Clientes e o registro será inserido. Isso tudo foi feito utilizando poucas linhas de código e sem escrever instruções SQL, graças ao Mapeamento Objeto-Relacional feito pelo Entity Framework.
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+#### Passo 6: Alterar dados no banco
 
-### Jekyll Themes
+Agora que temos dados em nosso bancos, podemos alterar esses dados utulizando as seguintes linhas de codigos:
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/dariogabriel113/banco-de-dados-2/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+```markdown
+using (var ctx = new ClientesContext())
+{
+  client = ctx.Clientes.Where(s => s.Nome == "Joel").FirstOrDefault<Student>();
+}
+  
+if (client != null)
+{
+    client.Nome = "Joelzim";
+}
+  
+using (var dbCtx = new ClientesContext())
+{
+    dbCtx.Entry(client).State = System.Data.Entity.EntityState.Modified;     
+        
+    dbCtx.SaveChanges();
+}
+```
 
-### Support or Contact
+Linha 1 a 4: Vai até o banco e pega o cliente na tabela clientes cujo o nome é Joel.
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+Linha 6 a 9: Faz a verificação para saber se aquele cliente está com o campo nome preenchido, caso esteja faz um "update" no campo nome.
+
+Linha 11 a 16: No último bloco de comando ele salva as alterações realizadas no banco.
