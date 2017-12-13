@@ -174,3 +174,24 @@ Linha 1 a 4: Vai até o banco e pega o cliente na tabela clientes cujo o nome é
 Linha 6 a 9: Faz a verificação para saber se aquele cliente está com o campo nome preenchido, caso esteja faz um "update" no campo nome.
 
 Linha 11 a 16: No último bloco de comando ele salva as alterações realizadas no banco.
+
+#### Passo 8: Deletar dados do banco.
+
+Para finalizar nossa CRUD, a seguir irá mostrar um exemplo de código para deletar um dado dentro do banco.
+
+```markdown
+using (var ctx = new ClientesContext())
+{
+  clientToBeDeleted = ctx.Clientes.Where(s => s.Nome == "Joelzim").FirstOrDefault<Student>();
+}
+  
+using (var dbCtx = new ClientesContext())
+{
+    dbCtx.Entry(clientToBeDeleted).State = System.Data.Entity.EntityState.Deleted;     
+        
+    dbCtx.SaveChanges();
+}
+```
+Linha 1 a 4: Vai até o banco e pega o cliente na tabela clientes cujo o nome é Joelzim, da mesma forma que foi mostrado nos exemplos anteriores.
+
+Linha 6 a 11: Faz a remoção dos dados que foram selecionados nas linhas 1 a 4 e salva(Commita) as alterações.
