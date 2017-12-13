@@ -19,7 +19,6 @@ Um dos grandes slogan do SQL Server 2008 é ir além do relacional. De fato ele 
 
 
 ### Mapeamento Objeto-Relacional
-<<<<<<< HEAD
 
 ORM (Object-Relational Mapping) é uma técnica que consiste da conversão das classes da aplicação para tabelas do banco de dados e vice-versa. Da mesma forma, também faz parte desse processo a conversão entre os objetos da aplicação e as linhas da tabela. Ou seja, enquanto no código trabalhamos com classes e objetos, esses são gravados e recuperados do banco de dados na forma de registros/linhas.
 
@@ -201,7 +200,7 @@ Linha 6 a 11: Faz a remoção dos dados que foram selecionados nas linhas 1 a 4 
 
 Se executarmos a aplicação agora veremos que o banco de dados será criado no SQL Server, bem como a tabela de Clientes e o registro será inserido e na sequência os demais exemplos para fazer READ, UPDATE e DELETE. Isso tudo foi feito utilizando poucas linhas de código e sem escrever instruções SQL, graças ao Mapeamento Objeto-Relacional feito pelo Entity Framework.
 
-### Fontes
+### Fontes:
 
 http://www.deviamedia.com.br/
 
