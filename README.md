@@ -191,8 +191,7 @@ using (var dbCtx = new ClientesContext())
         
     dbCtx.SaveChanges();
 }
-
-
+```
 Linha 1 a 4: Vai até o banco e pega o cliente na tabela clientes cujo o nome é Joelzim, da mesma forma que foi mostrado nos exemplos anteriores.
 
 Linha 6 a 11: Faz a remoção dos dados que foram selecionados nas linhas 1 a 4 e salva(Commita) as alterações.
@@ -206,4 +205,4 @@ http://www.deviamedia.com.br/
 
 http://www.entityframeworktutorial.net/
 
-https://pt.wikipedia.org/wiki/Mapeamento_objeto-relacional
+https://pt.wikipedia.org/wiki/Mapeamento_objeto-relacional/
