@@ -130,7 +130,23 @@ Linhas 14 e 15: Imprimimos uma mensagem no console e aguardamos o pressionamento
 
 Se executarmos a aplicação agora veremos que o banco de dados será criado no SQL Server, bem como a tabela de Clientes e o registro será inserido. Isso tudo foi feito utilizando poucas linhas de código e sem escrever instruções SQL, graças ao Mapeamento Objeto-Relacional feito pelo Entity Framework.
 
-#### Passo 6: Alterar dados no banco
+#### Passo 6: Mostrar dados do banco
+
+Agora que temos um dado em nosso banco, iremos fazer de uma forma simples para printar na tela.
+
+```markdown
+using (var ctx = new ClientesContext())
+{
+  client = ctx.Clientes.Where(s => s.Nome == "Joel").FirstOrDefault<Student>();
+}
+ 
+Console.WriteLine("Dados do usuário: " + client.Nome + " " + client.Credito + " " + client.Idade)
+```
+Linha 1 a 4: Vai até o banco e pega o cliente na tabela clientes cujo o nome é Joel.
+
+Linha 6: Irá imprimir os dados que foram selecionados.
+
+#### Passo 7: Alterar dados no banco
 
 Agora que temos dados em nosso bancos, podemos alterar esses dados utulizando as seguintes linhas de codigos:
 
