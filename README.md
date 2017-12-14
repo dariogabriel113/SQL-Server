@@ -205,4 +205,8 @@ http://www.deviamedia.com.br/
 
 http://www.entityframeworktutorial.net/
 
-https://pt.wikipedia.org/wiki/Mapeamento_objeto-relacional/
+
+### Feito por:
+Dario Gabriel
+
+Hamilton Neto
