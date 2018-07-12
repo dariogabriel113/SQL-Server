@@ -207,7 +207,7 @@ http://www.entityframeworktutorial.net/
 
 
 ### Feito por:
-Dario Gabriel
+[Dario Gabriel](https://github.com/dariogabriel113)
 
 Hamilton Neto
 
